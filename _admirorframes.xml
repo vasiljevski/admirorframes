@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="content" method="upgrade">
+    <name>PLG_CONTENT_ADMIRORFRAMES</name>
+    <author>Igor Kekeljevic and Nikola Vasiljevski</author>
+    <creationDate>11/07/2011</creationDate>
+    <copyright>This extension in released under the GNU/GPL License - http://www.gnu.org/copyleft/gpl.html</copyright>
+    <authorEmail></authorEmail>
+    <authorUrl>http://www.admiror-design-studio.com</authorUrl>
+    <version>2.1</version>
+    <description>PLG_CONTENT_ADMIRORFRAMES_XML_DESCRIPTION</description>
+    <scriptfile>admirorframes.scriptfile.php</scriptfile>
+    <files>
+        <folder plugin="admirorframes">admirorframes</folder>
+        <filename plugin="admirorframes">admirorframes.php</filename>
+        <filename plugin="admirorframes">index.html</filename>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.plg_content_admirorframes.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_content_admirorframes.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic" label="AF_BASIC_SETTINGS">
+                <field name="af_template" type="folderlist" default="default" label="AF_TEMPLATE_LABEL" description="AF_TEMPLATE_DESC" directory="plugins/content/admirorframes/admirorframes/templates" exclude="" stripext="" hide_none="true" hide_default="true" />
+
+                <field name="af_ratio" type = "list" default="100" label="AF_RATIO_LABEL" description= "AF_RATIO_DESC">
+                    <option value="10"> 10 </option>
+                    <option value="20"> 20 </option>
+                    <option value="30"> 30 </option>
+                    <option value="40"> 40 </option>
+                    <option value="50"> 50 </option>
+                    <option value="60"> 60 </option>
+                    <option value="70"> 70 </option>
+                    <option value="80"> 80 </option>
+                    <option value="90"> 90 </option>
+                    <option value="100"> 100 </option>
+                </field>
+
+                <field name="af_bgcolor" type="text" default="FFFFFF" label="AF_BGCOLOR_LABEL" description="AF_BGCOLOR_DESC" />
+
+                <field name="af_colorize" type="text" default="" label="AF_COLORIZE_LABEL" description="AF_COLORIZE_DESC" />
+
+                <field name="af_width" type="text" default="100%" label="AF_WIDTH_LABEL" description="AF_WIDTH_DESC" />
+
+                <field name="af_height" type="text" default="" label="AF_HEIGHT_LABEL" description="AF_HEIGHT_DESC" />
+
+                <field name="af_margin" type="text" default="0" label="AF_MARGIN_LABEL" description="AF_MARGIN_DESC" />
+
+                <field name="af_padding" type="text" default="" label="AF_PADDING_LABEL" description="AF_PADDING_DESC" />
+
+                <field name="af_horiAlign" type = "list" default="left" label="AF_HORIALIGN_LABEL" description= "AF_HORIALIGN_DESC">
+                    <option value="left"> left </option>
+                    <option value="center"> center </option>
+                    <option value="right"> right </option>
+                </field>
+
+                <field name="af_vertAlign" type = "list" default="top" label="AF_VERTALIGN_LABEL" description= "AF_VERTALIGN_DESC">
+                    <option value="top"> top </option>
+                    <option value="middle"> middle </option>
+                    <option value="bottom"> bottom </option>
+                </field>
+
+                <field name="af_float" type = "list" default="left" label="AF_FLOAT_LABEL" description= "AF_FLOAT_DESC">
+                    <option value="none"> none </option>
+                    <option value="left"> left </option>
+                    <option value="right"> right </option>
+                </field>
+            </fieldset>
+            <fieldset name="system" label="AF_ADVANCE_SETTINGS" description="AF_ADVANCE_SETTINGS_DESC">
+                <field name="af_showSignature" type="list" default="1" label="AF_SHOWSIGNATURE_LABEL" description="AF_SHOWSIGNATURE_DESC" >
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </field>
+                <field name="af_disable_signature" type="list" default="0" label="AF_DISABLESIGNATURE_LABEL" description="AF_DISABLESIGNATURE_DESC" >
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>
