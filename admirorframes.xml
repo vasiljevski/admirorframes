@@ -6,7 +6,7 @@
     <copyright>This extension in released under the GNU/GPL License - http://www.gnu.org/copyleft/gpl.html</copyright>
     <authorEmail></authorEmail>
     <authorUrl>http://www.admiror-design-studio.com</authorUrl>
-    <version>2.1</version>
+    <version>3.0</version>
     <description>PLG_CONTENT_ADMIRORFRAMES_XML_DESCRIPTION</description>
     <files>
         <folder plugin="admirorframes">admirorframes</folder>

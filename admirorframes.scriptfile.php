@@ -20,7 +20,9 @@ defined('_JEXEC') or die('Restricted access');
 class plgcontentadmirorframesInstallerScript {
 
     /**
-     * method to install the component
+     * Install the component
+     *
+     * @param $parent
      *
      * @return void
      */
@@ -29,7 +31,9 @@ class plgcontentadmirorframesInstallerScript {
     }
 
     /**
-     * method to uninstall the component
+     * Uninstall the component
+     *
+     * @param $parent
      *
      * @return void
      */
@@ -38,7 +42,9 @@ class plgcontentadmirorframesInstallerScript {
     }
 
     /**
-     * method to update the component
+     * Update the component
+     *
+     * @param $parent
      *
      * @return void
      */
@@ -48,7 +54,10 @@ class plgcontentadmirorframesInstallerScript {
     }
 
     /**
-     * method to run before an install/update/uninstall method
+     * Run before an install/update/uninstall method
+     *
+     * @param $type
+     * @param $parent
      *
      * @return void
      */
@@ -57,15 +66,20 @@ class plgcontentadmirorframesInstallerScript {
     }
 
     /**
-     * method to run after an install/update/uninstall method
+     * Run after an install/update/uninstall method
+     *
+     * @param $type
+     * @param $parent
      *
      * @return void
+     *
+     * @throws Exception
      */
     function postflight($type, $parent) {
         // $parent is the class calling this method
         // $type is the type of change (install, update or discover_install)
         if (!JFile::Move($parent->getParent()->getPath('extension_root') . DIRECTORY_SEPARATOR . "_admirorframes.xml", $parent->getParent()->getPath('extension_root') . DIRECTORY_SEPARATOR . "admirorframes.xml")) {
-            JError::raiseError(4711, 'Manifest file could not be renamed. Please go to plugins/content/admirorframes and rename _admirorframes.xml to admirorframes.xml');
+            JFactory::getApplication()->enqueueMessage('Manifest file could not be renamed. Please go to plugins/content/admirorframes and rename _admirorframes.xml to admirorframes.xml', 'error');
         }
     }
 

@@ -8,7 +8,7 @@
   # @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
   # Websites: http://www.admiror-design-studio.com/joomla-extensions
   # Technical Support:  Forum - http://www.vasiljevski.com/forum/index.php
-  # Version: 2.1
+  # Version: 3.0
   ------------------------------------------------------------------------- */
 if ($_GET['src_file'] == "")
     exit;
@@ -19,8 +19,13 @@ $colorize = $_GET['colorize'];
 $ratio = $_GET['ratio'];
 
 // Create src_img
-if (preg_match("/png/i", $src_file)) {
+if (preg_match("/png/i", $src_file))
+{
     @$src_img = imagecreatefrompng($src_file);
+}
+else
+{
+    return;
 }
 
 $src_w = imageSX($src_img); //$src_width
@@ -83,4 +88,4 @@ imagefill($dst_img, 0, 0, $AF_BGCOLOR);
 
 @imagedestroy($dst_img);
 @imagedestroy($src_img);
-?>
+
