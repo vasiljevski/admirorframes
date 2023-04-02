@@ -6,8 +6,11 @@
     <copyright>This extension in released under the GNU/GPL License - http://www.gnu.org/copyleft/gpl.html</copyright>
     <authorEmail></authorEmail>
     <authorUrl>http://www.admiror-design-studio.com</authorUrl>
-    <version>3.0</version>
+    <version>3.0.0</version>
     <description>PLG_CONTENT_ADMIRORFRAMES_XML_DESCRIPTION</description>
+    <updateservers>
+        <server type="extension" name="AdmirorFrames" priority="1">https://www.admiror-design-studio.com/releases/updates.xml</server>
+    </updateservers>
     <files>
         <folder plugin="admirorframes">admirorframes</folder>
         <filename plugin="admirorframes">admirorframes.php</filename>
