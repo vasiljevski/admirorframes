@@ -8,7 +8,7 @@
   # @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
   # Websites: http://www.admiror-design-studio.com/joomla-extensions
   # Technical Support:  Forum - http://www.vasiljevski.com/forum/index.php
-  # Version: 3.0
+  # Version: 3.0.0
   ------------------------------------------------------------------------- */
 if ($_GET['src_file'] == "")
     exit;
