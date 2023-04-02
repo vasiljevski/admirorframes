@@ -8,7 +8,7 @@
   # @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
   # Websites: http://www.admiror-design-studio.com/joomla-extensions
   # Technical Support:  Forum - http://www.vasiljevski.com/forum/index.php
-  # Version: 3.0
+  # Version: 3.0.0
   ------------------------------------------------------------------------- */
 
 class afHelper
@@ -40,23 +40,27 @@ class afHelper
         $this->path = $path;
     }
 
-    private function afCreateImg($ID)
-    {
-        $pluginUrl = "plugins/content" . $this->path . "scripts/afGdStream.php?src_file=";
-        return (string)JURI::root() . $pluginUrl .
-            urlencode($this->params['templates_BASE'] .
-                $this->params['template'] . DIRECTORY_SEPARATOR . $ID . ".png") . "&bgcolor=" .
-            $this->params['bgcolor'] . "&colorize=" .
-            $this->params['colorize'] . "&ratio=" .
-            $this->params['ratio'];
-    }
+private function afCreateImg($ID)
+{
+    $pluginUrl = "plugins/content{$this->path}scripts/afGdStream.php?src_file=%s&bgcolor=%s&colorize=%s&ratio=%s";
+    $imgUrl = sprintf(
+        $pluginUrl,
+        urlencode($this->params['templates_BASE'] . $this->params['template'] . DIRECTORY_SEPARATOR . $ID . ".png"),
+        urlencode($this->params['bgcolor']),
+        urlencode($this->params['colorize']),
+        urlencode($this->params['ratio'])
+    );
+    return (string) JURI::root() . $imgUrl;
+}
 
     //Gets the attributes value by name, else returns false
-    protected function afGetAttribute($attrib, $tag, $default)
+    protected function afGetAttribute($attrib, $tag, $default = false)
     {
-        //get attribute from html tag
+        static $re = '/%s=([\'"])?((?(1).+?|[^\s>]+))(?(1)\1)/is';
+        $re = sprintf($re, preg_quote($attrib));
+
+        // get attribute from html tag
         $tag = str_replace("}", "", $tag);
-        $re = '/' . preg_quote($attrib) . '=([\'"])?((?(1).+?|[^\s>]+))(?(1)\1)/is';
         if (preg_match($re, $tag, $match)) {
             return urldecode($match[2]);
         }
