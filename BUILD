@@ -1,13 +1,12 @@
 load("@rules_pkg//pkg:zip.bzl", "pkg_zip")
 load("config.bzl", "VERSION", "JOOMLA_PATH")
 
-# Set the version number
-
 pkg_zip(
-    name = "plg_admirorframes_%s" % VERSION,
+    name = "build_release",
     srcs = [
         ":files",
     ],
+    package_file_name = "plg_admirorframes_%s.zip" % VERSION,
     strip_prefix = ".",
 )
 

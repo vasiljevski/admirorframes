@@ -58,7 +58,7 @@ class plgContentAdmirorframes extends JPlugin
         require_once(dirname(__FILE__) . '/admirorframes/scripts/afHelper.php');
 
         $path = '/admirorframes/admirorframes/';
-        if (JVersion::RELEASE == "1.5") {
+        if (Joomla\CMS\Version::MAJOR_VERSION != 4) {
             $path = '/admirorframes/';
         }
         $AF = new afHelper($this->params, $path);
