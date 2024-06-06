@@ -8,7 +8,7 @@
   # @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
   # Websites: http://www.admiror-design-studio.com/joomla-extensions
   # Technical Support:  Forum - http://www.vasiljevski.com/forum/index.php
-  # Version: 3.0.0
+  # Version: 5.0.0
   ------------------------------------------------------------------------- */
 
 // No direct access to this file

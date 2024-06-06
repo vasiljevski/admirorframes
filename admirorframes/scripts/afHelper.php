@@ -8,7 +8,7 @@
   # @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
   # Websites: http://www.admiror-design-studio.com/joomla-extensions
   # Technical Support:  Forum - http://www.vasiljevski.com/forum/index.php
-  # Version: 3.0.0
+  # Version: 5.0.0
   ------------------------------------------------------------------------- */
 
 class afHelper
@@ -34,29 +34,28 @@ class afHelper
         $this->staticParams['float'] = $globalParams->get('af_float', 'none');
         $this->staticParams['showSignature'] = $globalParams->get('af_showSignature', '1');
         $this->staticParams['disableSignature'] = $globalParams->get('af_disable_signature', '0');
-        $this->params['templates_BASE'] = JPATH_BASE . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR .
-            'content' . $path . 'templates' . DIRECTORY_SEPARATOR;
-        $this->params['templates_ROOT'] = JURI::root() . 'plugins/content' . $path . 'templates/';
+        $this->params['templates_BASE'] = 'plugins/content' . $path . 'templates/';
         $this->path = $path;
     }
 
-private function afCreateImg($ID)
-{
-    $pluginUrl = "plugins/content{$this->path}scripts/afGdStream.php?src_file=%s&bgcolor=%s&colorize=%s&ratio=%s";
-    $imgUrl = sprintf(
-        $pluginUrl,
-        urlencode($this->params['templates_BASE'] . $this->params['template'] . DIRECTORY_SEPARATOR . $ID . ".png"),
-        urlencode($this->params['bgcolor']),
-        urlencode($this->params['colorize']),
-        urlencode($this->params['ratio'])
-    );
-    return (string) JURI::root() . $imgUrl;
-}
+    private function afCreateImg($ID)
+    {
+        $pluginUrl = "plugins/content{$this->path}scripts/afGdStream.php?id=%s&template=%s&bgcolor=%s&colorize=%s&ratio=%s";
+        $imgUrl = sprintf(
+            $pluginUrl,
+            urlencode($ID),
+            urlencode($this->params['template']),
+            urlencode($this->params['bgcolor']),
+            urlencode($this->params['colorize']),
+            urlencode($this->params['ratio'])
+        );
+        return (string) JURI::root() . $imgUrl;
+    }
 
     //Gets the attributes value by name, else returns false
     protected function afGetAttribute($attrib, $tag, $default = false)
     {
-        static $re = '/%s=([\'"])?((?(1).+?|[^\s>]+))(?(1)\1)/is';
+        $re = '/%s=([\'"])?((?(1).+?|[^\s>]+))(?(1)\1)/is';
         $re = sprintf($re, preg_quote($attrib));
 
         // get attribute from html tag
@@ -182,6 +181,4 @@ private function afCreateImg($ID)
 
         return $content;
     }
-
 }
-

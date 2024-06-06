@@ -8,7 +8,7 @@
   # @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
   # Websites: http://www.admiror-design-studio.com/joomla-extensions
   # Technical Support:  Forum - http://www.vasiljevski.com/forum/index.php
-  # Version: 3.0.0
+  # Version: 5.0.0
   ------------------------------------------------------------------------- */
 defined('_JEXEC') or die('Restricted access');
 //Import library dependencies
@@ -19,6 +19,7 @@ jimport('joomla.filesystem.folder');
 class plgContentAdmirorframes extends JPlugin
 {
 
+    private $preg_match_pattern = "#{AF[^}]*}(.*?){/AF}|{af[^}]*}(.*?){/af}#s";
     //Constructor
     function __construct(&$subject, $params)
     {
@@ -28,7 +29,7 @@ class plgContentAdmirorframes extends JPlugin
     //Joomla 1.5
     public function onPrepareContent($row, &$params, $limitstart = 0)
     {
-        if (preg_match("#{AF[^}]*}(.*?){/AF}#s", strtoupper($row->text))) {
+        if (preg_match($this->preg_match_pattern, strtoupper($row->text))) {
             $row->text = $this->textToFrame($row->text);
         }
     }
@@ -38,7 +39,7 @@ class plgContentAdmirorframes extends JPlugin
         if (is_object($row)) {
             $this->onPrepareContent($row, $params, $page);
         } else {
-            if (preg_match("#{AF[^}]*}(.*?){/AF}#s", strtoupper($row))) {
+            if (preg_match($this->preg_match_pattern, strtoupper($row))) {
                 $row = $this->textToFrame($row);
             }
         }
@@ -58,12 +59,12 @@ class plgContentAdmirorframes extends JPlugin
         require_once(dirname(__FILE__) . '/admirorframes/scripts/afHelper.php');
 
         $path = '/admirorframes/admirorframes/';
-        if (Joomla\CMS\Version::MAJOR_VERSION != 4) {
+        if (Joomla\CMS\Version::MAJOR_VERSION < 4) {
             $path = '/admirorframes/';
         }
         $AF = new afHelper($this->params, $path);
 
-        if (preg_match_all("#{AF[^}]*}(.*?){/AF}|{af[^}]*}(.*?){/af}#s", $row, $matches) > 0) {
+        if (preg_match_all($this->preg_match_pattern, $row, $matches) > 0) {
             foreach ($matches[0] as $matchKey => $matchValue) {
                 $patterns = array();
                 $patterns[0] = '|{AF[^}]*}|i';

@@ -8,24 +8,32 @@
   # @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
   # Websites: http://www.admiror-design-studio.com/joomla-extensions
   # Technical Support:  Forum - http://www.vasiljevski.com/forum/index.php
-  # Version: 3.0.0
+  # Version: 5.0.0
   ------------------------------------------------------------------------- */
-if ($_GET['src_file'] == "")
-    exit;
 
-$src_file = urldecode($_GET['src_file']);
-$bgcolor = $_GET['bgcolor'];
-$colorize = $_GET['colorize'];
-$ratio = $_GET['ratio'];
-
-// Create src_img
-if (preg_match("/png/i", $src_file))
+function get_parameter($id)
 {
-    @$src_img = imagecreatefrompng($src_file);
+    return isset($_GET[$id]) ? basename(urldecode($_GET[$id])) : '';
 }
-else
-{
-    return;
+
+$base_dir = realpath(__DIR__ . '/..');
+
+$id = get_parameter('id');
+$template = get_parameter('template');
+$bgcolor = get_parameter('bgcolor');
+$colorize = get_parameter('colorize');
+$ratio = get_parameter('ratio');
+
+$src_file = $base_dir . DIRECTORY_SEPARATOR . 'templates/' . $template . DIRECTORY_SEPARATOR . $id . '.png';
+
+// Ensure src_file is not empty and has a valid format
+if (empty($src_file) || !preg_match('/\.png$/i', $src_file) || preg_match('/^https?:\/\//i', $src_file)) {
+    exit();
+}
+
+$src_img = @imagecreatefrompng($src_file);
+if ($src_img === false) {
+    exit();
 }
 
 $src_w = imageSX($src_img); //$src_width
@@ -70,22 +78,51 @@ if ($colorize != "disable") {
 }
 
 
-@$dst_img = imagecreatetruecolor($dst_w, $dst_h);
+// Ensure all necessary variables are set and valid
+if (!isset($dst_w, $dst_h, $bgcolor, $src_img, $src_x, $src_y, $src_w, $src_h)) {
+    exit();
+}
 
+// Create a true color image
+$dst_img = imagecreatetruecolor($dst_w, $dst_h);
+if (!$dst_img) {
+    exit();
+}
+
+// Convert background color from hex to RGB
 $AF_bgcolor_RGB = array(
-    base_convert(substr($bgcolor, 0, 2), 16, 10),
-    base_convert(substr($bgcolor, 2, 2), 16, 10),
-    base_convert(substr($bgcolor, 4, 2), 16, 10)
+    hexdec(substr($bgcolor, 0, 2)),
+    hexdec(substr($bgcolor, 2, 2)),
+    hexdec(substr($bgcolor, 4, 2))
 );
 
+// Allocate background color
 $AF_BGCOLOR = imagecolorallocate($dst_img, $AF_bgcolor_RGB[0], $AF_bgcolor_RGB[1], $AF_bgcolor_RGB[2]);
+if ($AF_BGCOLOR === false) {
+    imagedestroy($dst_img);
+    exit();
+}
 
+// Fill the image with the background color
 imagefill($dst_img, 0, 0, $AF_BGCOLOR);
 
-@imagecopyresampled($dst_img, $src_img, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+// Copy and resample the source image
+if (!imagecopyresampled($dst_img, $src_img, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h)) {
+    imagedestroy($dst_img);
+    imagedestroy($src_img);
+    exit();
+}
 
-@imagejpeg($dst_img, NULL, 96);
+// Set the content type header to PNG
+header('Content-Type: image/png');
 
-@imagedestroy($dst_img);
-@imagedestroy($src_img);
+// Output the image as PNG
+if (!imagepng($dst_img)) {  // Use imagepng() for PNG format
+    imagedestroy($dst_img);
+    imagedestroy($src_img);
+    exit();
+}
 
+// Free up memory
+imagedestroy($dst_img);
+imagedestroy($src_img);
