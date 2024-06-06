@@ -83,7 +83,7 @@ class plgContentAdmirorframes extends JPlugin
                 } else {
                     $row .= '<div style="display:block; font-size:10px; overflow:hidden; height:1px; padding-top:1px;">';
                 }
-                $row .= '<br /><a href="http://www.admiror-design-studio.com/en/joomla-extensions" target="_blank">AdmirorFrames 3.0</a>, ' . JText::_("author/s") . ' <a href="http://www.vasiljevski.com/" target="_blank">Vasiljevski</a> & <a href="http://www.admiror-design-studio.com" target="_blank">Kekeljevic</a>.<br /></div>';
+                $row .= '<br /><a href="http://www.admiror-design-studio.com/en/joomla-extensions" target="_blank">AdmirorFrames 5.0</a>, ' . JText::_("author/s") . ' <a href="http://www.vasiljevski.com/" target="_blank">Vasiljevski</a> & <a href="http://www.admiror-design-studio.com" target="_blank">Kekeljevic</a>.<br /></div>';
             }
         }//if (preg_match_all("#{AdmirorFrames[^}]*}(.*?){/AdmirorFrames}#s", $row, $matches, PREG_PATTERN_ORDER)>0)
         return $row;
